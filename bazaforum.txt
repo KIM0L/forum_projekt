@@ -1,0 +1,92 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`rola`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`rola` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`rola` (
+  `idrole` INT NOT NULL AUTO_INCREMENT,
+  `nazwa` LONGTEXT NOT NULL,
+  PRIMARY KEY (`idrole`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`User`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`User` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+  `idUser` INT NOT NULL AUTO_INCREMENT,
+  `imie` LONGTEXT NOT NULL,
+  `nazwisko` LONGTEXT NOT NULL,
+  `login` LONGTEXT NOT NULL,
+  `haslo` LONGTEXT NOT NULL,
+  `rola_idrole` INT NOT NULL,
+  PRIMARY KEY (`idUser`),
+  INDEX `fk_User_rola_idx` (`rola_idrole` ASC) VISIBLE,
+  CONSTRAINT `fk_User_rola`
+    FOREIGN KEY (`rola_idrole`)
+    REFERENCES `mydb`.`rola` (`idrole`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`kategoria`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`kategoria` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`kategoria` (
+  `idkategoria` INT NOT NULL AUTO_INCREMENT,
+  `nazwa` LONGTEXT NOT NULL,
+  PRIMARY KEY (`idkategoria`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`post`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`post` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`post` (
+  `idpost` INT NOT NULL AUTO_INCREMENT,
+  `data` DATE NOT NULL,
+  `tresc` LONGTEXT NOT NULL,
+  `User_idUser` INT NOT NULL,
+  `kategoria_idkategoria` INT NOT NULL,
+  PRIMARY KEY (`idpost`),
+  INDEX `fk_post_User1_idx` (`User_idUser` ASC) VISIBLE,
+  INDEX `fk_post_kategoria1_idx` (`kategoria_idkategoria` ASC) VISIBLE,
+  CONSTRAINT `fk_post_User1`
+    FOREIGN KEY (`User_idUser`)
+    REFERENCES `mydb`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_post_kategoria1`
+    FOREIGN KEY (`kategoria_idkategoria`)
+    REFERENCES `mydb`.`kategoria` (`idkategoria`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
