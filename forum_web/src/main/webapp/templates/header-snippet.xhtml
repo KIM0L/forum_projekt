@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<p:panel toggleable="true" styleClass="bottom-space">
+	<center>
+		<h1>
+			
+			<h:graphicImage name="img/title.png" library="template" style="width:100%; height:20%" />
+		</h1>
+		<br/>
+			<p:clock displayMode="analog"/>
+		</center>
+		<p:linkButton type="button" value="Zarejestruj się!" styleClass="rounded-button" style="margin: 1rem auto 1rem" outcome="registration.xhtml"/>
+		<p:linkButton type="button" value="Strona główna" styleClass="rounded-button" style="position: center" outcome="index.xhtml"/>
+		<p:linkButton type="button" value="Zaloguj sie!" styleClass="rounded-button" style="margin-left: 75%" outcome="login.xhtml"/>
+	</p:panel>
+
+</ui:composition>
